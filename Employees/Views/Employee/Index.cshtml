@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Employees.Models.EmployeeVM.EmployeePreviewVM>
+
+@{
+    ViewData["Title"] = "Сотрудники";
+}
+
+<div>
+    <h4>Список сотрудников</h4>
+</div>
+
+<div>
+    @Html.ActionLink("Добавить нового", "Add", "Employee")
+    <br /><br />
+</div>
+
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Фамилия</th>
+                <th>Пол</th>
+                <th>Должность</th>
+                <th>Дата рождения</th>
+                <th>Телефон</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Name</td>
+                    <td>@user.Patronymic</td>
+                    <td>@user.Surname</td>
+                    <td>@user.Gender</td>
+                    <td>@user.Position</td>
+                    <td>@user.Birthdate</td>
+                    <td>@user.Phone</td>
+                    <td>
+                        @Html.ActionLink("Изменить", "Edit", new
+                        {
+                            id = user.Id
+                            }, new { @class = "btn btn-link" })
+                    </td>
+                    <td>
+                        @using (Html.BeginForm("Delete", "Employee", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("id", user.Id)
+                            <button class="btn btn-link">Удалить</button>
+                        }
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

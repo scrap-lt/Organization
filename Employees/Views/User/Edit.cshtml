@@ -1,0 +1,38 @@
+﻿@model Employees.Models.UserVM.UserEditVM
+
+@{
+    ViewData["Title"] = "Редактировать пользователя";
+}
+
+<div>
+    <h4>Редактировать пользователя</h4>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Login" class="control-label"></label>
+                <input asp-for="Login" class="form-control" />
+                <span asp-validation-for="Login" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Role, "Роль:")
+                &nbsp;
+                @Html.DropDownListFor(m => m.Role, (IEnumerable<SelectListItem>)ViewData["Roles"])
+                @Html.ValidationMessageFor(m => m.Role, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success" value="Сохранить" />
+                <input type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Index")'" value="Отменить" />
+            </div>
+        </form>
+    </div>
+</div>
